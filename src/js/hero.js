@@ -1,21 +1,16 @@
 import Api from './api';
-
 import getRefs from './components/get-refs';
-import { genresList } from './components/genre-list';
-import initRating from './init-rating';
-import onOpenModalEmpty from './modal-empty'
+import onOpenModalEmpty from './modal-empty';
 
 const refs = getRefs();
 
 const hero_poster = document.querySelector('.hero__movie-poster');
-
 
 const api = new Api();
 
 getDayMovieTrend();
 
 let idMovies = 0;
-// let divEl = '';
 
 async function getDayMovieTrend() {
   try {
@@ -25,6 +20,7 @@ async function getDayMovieTrend() {
       'beforeend',
       renderHeroPageMarkup(response.results[randomValue])
     );
+
     const heroButton = document.querySelector('.hero__button');
     heroButton.addEventListener('click', onOpenModalEmpty);
   } catch (err) {
@@ -49,9 +45,9 @@ function renderHeroPageMarkup({
     ? `https://image.tmdb.org/t/p/w1280/${poster_path}`
     : 'https://via.placeholder.com/395x574?text=No+Image';
 
-        hero_poster.style.backgroundImage = `url("${imageUrl}")`;
+  hero_poster.style.backgroundImage = `url("${imageUrl}")`;
 
-        return `
+  return `
         <div class="hero__info">
         <h1 class="hero__title">${title}</h1>
         <div class="rating hero__vote">
@@ -70,16 +66,15 @@ function renderHeroPageMarkup({
           <div class="rating__value">${vote_average}</div>
         </div>
         <p class = "hero__text">${overview.slice(0, 150) + '...'}</p>
-        <button type="button" class="hero__button" id="trailer" >Watch trailer</button>
+        <button type="button" class="hero__button" id="trailer" data-trendId="${id}">Watch trailer</button>
         <div>
        `;
-
 }
 
 function renderDefaultMarkup() {
   return `
     <div class="hero__info">
-      <h1 class="hero__title">Let’s Make Your Own Cinema</h1>
+      <h1 class="hero__title">Let's Make Your Own Cinema</h1>
       <p class="hero__text">Is a guide to creating a personalized movie theater experience.
       You'll need a projector, screen, and speakers.<span class="paragraph__hidden">Decorate your space,
       choose your films, and stock up on snacks for the full experience.</span></p>
@@ -90,7 +85,7 @@ function renderDefaultMarkup() {
 async function getCurrentMovieTrailer() {
   try {
     const response = await api.getDetailsById(idMovies);
-  
+
     findMovieTrailer(response.results);
   } catch (err) {
     addBasicHeroModalMarkup();
