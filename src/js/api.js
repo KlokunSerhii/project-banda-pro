@@ -171,4 +171,3 @@ export default class Api {
     return fetch(str).then(res => res.json());
   }
 }
-
