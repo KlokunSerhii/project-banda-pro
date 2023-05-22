@@ -19,12 +19,14 @@ export default async function onOpenModalEmpty(e) {
     modalWrapperEl.classList.add('isHidden');
     modalEmptyEl.classList.add('no-padding');
     const { results } = await api.searhMovieKey(
-      e.currentTarget.getAttribute('data-trendId')
-    );
-
+      e.currentTarget.getAttribute('data-trendId'));
+    
+    console.log(results)
     const key = results[0].key;
     const videoUrl = `https://www.youtube.com/embed/${key}`;
     modalEmptyEl.insertAdjacentHTML('afterbegin', trailerMarkup(videoUrl));
+        console.log(videoUrl)
+
   } catch (er) {
     modalWrapperEl.classList.remove('isHidden');
     modalEmptyEl.classList.remove('no-padding');
