@@ -21,6 +21,7 @@ export default async function onOpenModalEmpty(e) {
     const { results } = await api.searhMovieKey(
       e.currentTarget.getAttribute('data-trendId')
     );
+    console.log(results);
 
     const key = results[0].key;
     const videoUrl = `https://www.youtube.com/embed/${key}`;
