@@ -19,14 +19,12 @@ export default async function onOpenModalEmpty(e) {
     modalWrapperEl.classList.add('isHidden');
     modalEmptyEl.classList.add('no-padding');
     const { results } = await api.searhMovieKey(
-      e.currentTarget.getAttribute('data-trendId'));
-    
-    console.log(results)
+      e.currentTarget.getAttribute('data-trendId')
+    );
+
     const key = results[0].key;
     const videoUrl = `https://www.youtube.com/embed/${key}`;
     modalEmptyEl.insertAdjacentHTML('afterbegin', trailerMarkup(videoUrl));
-        console.log(videoUrl)
-
   } catch (er) {
     modalWrapperEl.classList.remove('isHidden');
     modalEmptyEl.classList.remove('no-padding');
@@ -65,14 +63,14 @@ function toggleModalEmpty() {
 }
 
 function trailerMarkup(url) {
-  return `<div class='watch-modal'>  
+  return `<div class='watch-modal'>
     <iframe
       id='trailer-video'
       class='watch-modal__iframe'
       src='${url}'
       frameborder='0'
       allowfullscreen
-    ></iframe>  
+    ></iframe>
 </div>`;
 }
 
